@@ -98,6 +98,9 @@ class Window:
 
         self.loop(loop)
 
+    def get_vertex_coordinates(self, x, y):
+        return (x-1.9, y-1)
+
     def convert(self, x, y=None):
         """Converts simulation coordinates to screen coordinates"""
         if isinstance(x, list):
@@ -274,12 +277,22 @@ class Window:
 
         self.draw_roads()
 
-        image = pygame.transform.rotozoom(self.image,0,self.zoom/7)
+        image = pygame.transform.rotozoom(self.image,0,self.zoom/25)
+        print(image.get_width()/self.zoom)
+        print(image.get_height()/self.zoom)
+        # exit(0)
         # print(image)
         # frameRect = self.image.get_rect().fit(self.zoom)
         # frameRect.update(6,6,frameRect.width*self.zoom,frameRect.height*self.zoom)
         # self.screen.blit(image, frameRect)
-        for i in range(1,100):
-            self.screen.blit(image, self.convert(10*i,0))
+        global x
+        x += 0.01
+        if x == 100:
+            x = 0
+        self.screen.blit(image, self.convert(self.get_vertex_coordinates(10*x, 1.75)))
+        self.screen.blit(image, self.convert(self.get_vertex_coordinates(12*x, 5.25-x*2)))
+        self.screen.blit(image, self.convert(self.get_vertex_coordinates(13*x, -1.75)))
+        self.screen.blit(image, self.convert(self.get_vertex_coordinates(20*x, -5.25)))
         # Draw status info
         # self.draw_status()
+x = 0
