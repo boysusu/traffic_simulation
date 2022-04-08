@@ -22,4 +22,4 @@ class Road:
             return
 
         for car in self.cars.ergodic:
-            car.update(car.prev, dt)
+            car.data.update(car.prev, dt)

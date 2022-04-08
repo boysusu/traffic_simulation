@@ -1,8 +1,7 @@
 from car import Car
 from numpy.random import randint,poisson
 
-x1 = poisson(lam=1, size=1)
-print(x1)
+
 class CarGenerator:
     def __init__(self, sim, config={}):
         self.sim = sim
@@ -19,36 +18,43 @@ class CarGenerator:
 
     def set_default_config(self):
         """Set default configuration"""
-        self.vehicle_rate = 20
-        self.vehicles = [
-            (1, {})
-        ]
-        self.last_added_time = 0
+        self.lam = 1
+        self.size = 40
 
     def init_properties(self):
-        self.upcoming_vehicle = self.generate_car()
+        self.generate_cars()
 
-    def generate_car(self):
-        """Returns a random vehicle from self.vehicles with random proportions"""
-        total = sum(pair[0] for pair in self.cars)
-        r = randint(1, total+1)
-        for (weight, config) in self.vehicles:
-            r -= weight
-            if r <= 0:
-                return Car(config)
+    def generate_cars(self):
+        for road in self.sim.roads:
+            if road.is_bicycle:
+                continue
+            poisson_list = poisson(lam=self.lam, size=self.size)
+            l = 25 - 3.8/2
+            for i in range(self.size):
+                if poisson_list[i] == 0:
+                    continue
+                d = l / poisson_list[i]
+                for j in range(poisson_list[i]):
+                    x = i*20 + 1.9 + j*d
+                    if road.if_left_to_right:
+                        road.cars.add(Car({"x": x}))
+                    else:
+                        road.cars.append(Car({"x": x}))
 
-    def update(self):
-        """Add vehicles"""
-        if self.sim.t - self.last_added_time >= 60 / self.vehicle_rate:
-            # If time elasped after last added vehicle is
-            # greater than vehicle_period; generate a vehicle
-            road = self.sim.roads[self.upcoming_vehicle.path[0]]
-            if len(road.vehicles) == 0\
-               or road.vehicles[-1].x > self.upcoming_vehicle.s0 + self.upcoming_vehicle.l:
-                # If there is space for the generated vehicle; add it
-                self.upcoming_vehicle.time_added = self.sim.t
-                road.vehicles.append(self.upcoming_vehicle)
-                # Reset last_added_time and upcoming_vehicle
-                self.last_added_time = self.sim.t
-            self.upcoming_vehicle = self.generate_vehicle()
+
+
+    # def update(self):
+    #     """Add vehicles"""
+    #     if self.sim.t - self.last_added_time >= 60 / self.vehicle_rate:
+    #         # If time elasped after last added vehicle is
+    #         # greater than vehicle_period; generate a vehicle
+    #         road = self.sim.roads[self.upcoming_vehicle.path[0]]
+    #         if len(road.vehicles) == 0\
+    #            or road.vehicles[-1].x > self.upcoming_vehicle.s0 + self.upcoming_vehicle.l:
+    #             # If there is space for the generated vehicle; add it
+    #             self.upcoming_vehicle.time_added = self.sim.t
+    #             road.vehicles.append(self.upcoming_vehicle)
+    #             # Reset last_added_time and upcoming_vehicle
+    #             self.last_added_time = self.sim.t
+    #         self.upcoming_vehicle = self.generate_vehicle()
 

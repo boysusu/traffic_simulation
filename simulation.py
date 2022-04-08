@@ -1,4 +1,5 @@
 from road import Road
+from car_generator import CarGenerator
 from copy import deepcopy
 
 
@@ -16,6 +17,7 @@ class Simulation:
         self.frame_count = 0  # Frame count keeping
         self.dt = 1 / 60  # Simulation time step
         self.roads = []  # Array to store roads
+        self.generators = []
 
     def create_road(self, start, end, is_bicycle=False):
         road = Road(start, end, is_bicycle)
@@ -26,12 +28,20 @@ class Simulation:
         for road in road_list:
             self.create_road(*road)
 
+    def create_gen(self, config={}):
+        gen = CarGenerator(self, config)
+        self.generators.append(gen)
+        return gen
+
     def update(self):
         # Update every car road
         for road in self.roads:
             if road.is_bicycle:
                 continue
             road.update(self.dt)
+
+        # for gen in self.generators:
+        #     gen.update()
 
         # Increment time
         self.t += self.dt

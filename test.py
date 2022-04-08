@@ -12,5 +12,7 @@ sim.create_roads([
     ((0, 8.25), (1000, 8.25), True),
 ])
 
+sim.create_gen()
+
 win = Window(sim)
 win.run()
