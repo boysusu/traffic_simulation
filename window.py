@@ -259,6 +259,24 @@ class Window:
                         sin=road.angle_sin
                     )
 
+    def draw_cars(self):
+        left_to_right_car_image = pygame.transform.rotozoom(self.image, 0, self.zoom/25)
+        right_to_left_car_image = pygame.transform.rotozoom(self.image, 180, self.zoom/25)
+        for road in self.sim.roads:
+            if road.is_bicycle:
+                continue
+            # Draw vehicles
+            if road.if_left_to_right:
+                image = left_to_right_car_image
+            else:
+                image = right_to_left_car_image
+
+            for car in road.cars.ergodic:
+                y = road.start[1]
+                x = road.start[0] + road.angle_cos * car.data.x
+
+                self.screen.blit(image, self.convert(x - car.data.l/2, y - car.data.h/2))
+
     def draw_status(self):
         text_fps = self.text_font.render(f't={self.sim.t:.5}', False, (0, 0, 0))
         text_frc = self.text_font.render(f'n={self.sim.frame_count}', False, (0, 0, 0))
@@ -276,8 +294,11 @@ class Window:
         self.draw_axes()
 
         self.draw_roads()
+        self.draw_cars()
 
-        image = pygame.transform.rotozoom(self.image,0,self.zoom/25)
+        self.left_to_right_car = pygame.transform.rotozoom(self.image, 0, self.zoom/25)
+        self.right_to_left_car = pygame.transform.rotozoom(self.image, 180, self.zoom/25)
+
         print(image.get_width()/self.zoom)
         print(image.get_height()/self.zoom)
         # exit(0)

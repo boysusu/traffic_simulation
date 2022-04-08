@@ -1,7 +1,7 @@
 class Node:
     """节点类"""
-    def __init__(self, item):
-        self.item = item
+    def __init__(self, data):
+        self.data = data
         self.next = None
         self.prev = None
 
@@ -50,13 +50,13 @@ class DLinkList:
             cur = cur.next
             yield cur
 
-    def add(self, item):
+    def add(self, data):
         """
         在头部添加节点
         :param item:
         :return:
         """
-        node = Node(item)
+        node = Node(data)
         if self.is_empty:
             self._head = node
         else:
@@ -64,22 +64,22 @@ class DLinkList:
             self._head.prev = node
             self._head = node
 
-    def append(self, item):
+    def append(self, data):
         """
         在尾部添加节点
         :return:
         """
         if self.is_empty:
-            self.add(item)
+            self.add(data)
         else:
-            node = Node(item)
+            node = Node(data)
             cur = self._head
             while None != cur.next:
                 cur = cur.next
             cur.next = node
             node.prev = cur
 
-    def insert(self, index, item):
+    def insert(self, index, data):
         """
         在任意位置插入节点
         :param index:
@@ -87,11 +87,11 @@ class DLinkList:
         :return:
         """
         if index == 0:
-            self.add(item)
+            self.add(data)
         elif index+1 > self.length:
-            self.append(item)
+            self.append(data)
         else:
-            node = Node(item)
+            node = Node(data)
             cur = self._head
             for i in range(index):
                 pre = cur
@@ -101,7 +101,7 @@ class DLinkList:
             node.next = cur
             cur.prev = node
 
-    def search(self, item):
+    def search(self, data):
         """
         查找节点是否存在
         :param item:
@@ -111,19 +111,19 @@ class DLinkList:
             raise ValueError("ERROR NULL")
         cur = self._head
         while None != cur:
-            if cur.item == item:
+            if cur.data == data:
                 return True
             cur = cur.next
         return False
 
-    def deltel(self, item):
+    def deltel(self, data):
         """删除节点元素"""
         if self.is_empty:
             raise ValueError('ERROR NULL')
         else:
             cur = self._head
             while None != cur:
-                if cur.item == item:
+                if cur.item == data:
                     if not cur.prev:  # 第一个节点
                         if None != cur.next:  # 不止一个节点
                             self._head = cur.next

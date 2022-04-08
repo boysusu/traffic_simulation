@@ -12,6 +12,7 @@ class Car:
 
     def set_default_config(self):
         self.l = 3.8  # 车身长度
+        self.h = 2  # 车身宽度
         self.s0 = 4  # 期望车距
         self.T = 1  # 驾驶员反应时间
         self.v_max = 50.0  # 正常行驶最大车速
@@ -39,8 +40,8 @@ class Car:
         # 更新车辆加速度
         alpha = 0
         if lead:
-            delta_x = lead.x - self.x - lead.l
-            delta_v = self.v - lead.v
+            delta_x = lead.data.x - self.x - lead.data.l
+            delta_v = self.v - lead.data.v
 
             alpha = (self.s0 + max(0, self.T * self.v + delta_v * self.v / self.sqrt_ab)) / delta_x
 
