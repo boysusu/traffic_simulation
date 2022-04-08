@@ -45,11 +45,10 @@ class DLinkList:
         if self.is_empty:
             raise ValueError('ERROR NULL')
         cur = self._head
-        print(cur.item)
-        while None != cur.next:
+        yield cur
+        while cur.next:
             cur = cur.next
-            print(cur.item)
-        return True
+            yield cur
 
     def add(self, item):
         """
