@@ -295,25 +295,21 @@ class Window:
 
         self.draw_roads()
         self.draw_cars()
+        self.draw_status()
 
-        self.left_to_right_car = pygame.transform.rotozoom(self.image, 0, self.zoom/25)
-        self.right_to_left_car = pygame.transform.rotozoom(self.image, 180, self.zoom/25)
-
-        print(image.get_width()/self.zoom)
-        print(image.get_height()/self.zoom)
         # exit(0)
         # print(image)
         # frameRect = self.image.get_rect().fit(self.zoom)
         # frameRect.update(6,6,frameRect.width*self.zoom,frameRect.height*self.zoom)
         # self.screen.blit(image, frameRect)
-        global x
-        x += 0.01
-        if x == 100:
-            x = 0
-        self.screen.blit(image, self.convert(self.get_vertex_coordinates(10*x, 1.75)))
-        self.screen.blit(image, self.convert(self.get_vertex_coordinates(12*x, 5.25-x*2)))
-        self.screen.blit(image, self.convert(self.get_vertex_coordinates(13*x, -1.75)))
-        self.screen.blit(image, self.convert(self.get_vertex_coordinates(20*x, -5.25)))
+        # global x
+        # x += 0.01
+        # if x == 100:
+        #     x = 0
+        # self.screen.blit(image, self.convert(self.get_vertex_coordinates(10*x, 1.75)))
+        # self.screen.blit(image, self.convert(self.get_vertex_coordinates(12*x, 5.25-x*2)))
+        # self.screen.blit(image, self.convert(self.get_vertex_coordinates(13*x, -1.75)))
+        # self.screen.blit(image, self.convert(self.get_vertex_coordinates(20*x, -5.25)))
         # Draw status info
         # self.draw_status()
 x = 0

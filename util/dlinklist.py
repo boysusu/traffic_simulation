@@ -43,7 +43,8 @@ class DLinkList:
         :return:
         """
         if self.is_empty:
-            raise ValueError('ERROR NULL')
+            return
+            # raise ValueError('ERROR NULL')
         cur = self._head
         yield cur
         while cur.next:
