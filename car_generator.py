@@ -37,11 +37,8 @@ class CarGenerator:
                     continue
                 d = l / poisson_list[i]
                 for j in range(poisson_list[i]):
-                    x = i*20 + 1.9 + j*d
-                    if road.if_left_to_right:
-                        road.cars.add(Car({"x": round(x, 2) if not x is int else 1}))
-                    else:
-                        road.cars.append(Car({"x": round(x, 2) if not x is int else 1}))
+                    x = i * (self.road_length/self.size) + self.car_length/2 + j*d
+                    road.cars.add(Car({"x": round(x, 2)}))
 
             # for car in road.cars.ergodic:
             #     print(car.data.x,end=',')

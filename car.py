@@ -14,14 +14,14 @@ class Car:
         self.l = 3.8  # 车身长度
         self.h = 2  # 车身宽度
         self.s0 = 1  # 期望车距
-        self.T = 0.2  # 驾驶员反应时间
-        self.v_max = 50.0  # 正常行驶最大车速
-        self.a_max = 10.0  # 最大加速度
-        self.b_max = 10.0  # 非紧急制动下的最大减速度
+        self.T = 0.1  # 驾驶员反应时间
+        self.v_max = 35.0  # 正常行驶最大车速
+        self.a_max = 6.0  # 最大加速度
+        self.b_max = 5.0  # 非紧急制动下的最大减速度
 
         self.current_road_index = 0  # 车辆所处的车道
 
-        self.x = 0  # 车辆的x轴坐标
+        self.x = 0  # 车辆行驶距离
         self.v = self.v_max  # 车辆的当前速率
         self.a = 0  # 车辆的当前加速度
 
