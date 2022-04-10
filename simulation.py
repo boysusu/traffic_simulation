@@ -40,8 +40,8 @@ class Simulation:
                 continue
             road.update(self.dt)
 
-        # for gen in self.generators:
-        #     gen.update()
+        for gen in self.generators:
+            gen.update()
 
         # Increment time
         self.t += self.dt

@@ -14,6 +14,10 @@ class DLinkList:
         self._head = None
 
     @property
+    def head(self):
+        return self._head
+
+    @property
     def is_empty(self):
         """
         是否为空
@@ -124,7 +128,7 @@ class DLinkList:
         else:
             cur = self._head
             while None != cur:
-                if cur.item == data:
+                if cur.data == data:
                     if not cur.prev:  # 第一个节点
                         if None != cur.next:  # 不止一个节点
                             self._head = cur.next

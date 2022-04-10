@@ -1,5 +1,5 @@
 from car import Car
-from numpy.random import randint,poisson
+from numpy.random import randint, poisson
 
 
 class CarGenerator:
@@ -31,37 +31,28 @@ class CarGenerator:
             if road.is_bicycle:
                 continue
             poisson_list = poisson(lam=self.lam, size=self.size)
-            l = self.road_length/self.size - self.car_length/2
+            l = self.road_length / self.size - self.car_length / 2
             for i in range(self.size):
                 if poisson_list[i] == 0:
                     continue
                 d = l / poisson_list[i]
                 for j in range(poisson_list[i]):
-                    x = i * (self.road_length/self.size) + self.car_length/2 + j*d
+                    x = i * (self.road_length / self.size) + self.car_length / 2 + j * d
                     road.cars.add(Car({"x": round(x, 2)}))
 
             # for car in road.cars.ergodic:
             #     print(car.data.x,end=',')
             # print()
 
-
-
-    # def update(self):
-    #     """Add vehicles"""
-    #     if self.sim.t - self.last_added_time >= 60 / self.vehicle_rate:
-    #         # If time elasped after last added vehicle is
-    #         # greater than vehicle_period; generate a vehicle
-    #         road = self.sim.roads[self.upcoming_vehicle.path[0]]
-    #         if len(road.vehicles) == 0\
-    #            or road.vehicles[-1].x > self.upcoming_vehicle.s0 + self.upcoming_vehicle.l:
-    #             # If there is space for the generated vehicle; add it
-    #             self.upcoming_vehicle.time_added = self.sim.t
-    #             road.vehicles.append(self.upcoming_vehicle)
-    #             # Reset last_added_time and upcoming_vehicle
-    #             self.last_added_time = self.sim.t
-    #         self.upcoming_vehicle = self.generate_vehicle()
+    def update(self):
+        for road in self.sim.roads:
+            if road.is_bicycle:
+                continue
+            head_car = road.cars.head.data
+            if head_car.x >= self.road_length:
+                head_car.x = 0
+                road.cars.deltel(head_car)
+                road.cars.append(head_car)
 
 if __name__ == '__main__':
-    gen = CarGenerator({"road_length":1000, "lam":1, "size":40, "car_length":3.8})
-
-
+    gen = CarGenerator({"road_length": 1000, "lam": 1, "size": 1, "car_length": 3.8})
