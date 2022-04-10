@@ -13,11 +13,11 @@ class Car:
     def set_default_config(self):
         self.l = 3.8  # 车身长度
         self.h = 2  # 车身宽度
-        self.s0 = 4  # 期望车距
-        self.T = 1  # 驾驶员反应时间
+        self.s0 = 1  # 期望车距
+        self.T = 0.2  # 驾驶员反应时间
         self.v_max = 50.0  # 正常行驶最大车速
-        self.a_max = 5.0  # 最大加速度
-        self.b_max = 8.0  # 非紧急制动下的最大减速度
+        self.a_max = 10.0  # 最大加速度
+        self.b_max = 10.0  # 非紧急制动下的最大减速度
 
         self.current_road_index = 0  # 车辆所处的车道
 

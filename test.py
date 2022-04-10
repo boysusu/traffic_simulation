@@ -12,7 +12,8 @@ sim.create_roads([
     ((0, 8.25), (1000, 8.25), True),
 ])
 
-sim.create_gen()
+sim.create_gen({"road_length":1000, "lam":1, "size":40, "car_length":3.8})
+
 
 win = Window(sim)
 win.run()

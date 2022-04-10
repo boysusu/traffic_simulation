@@ -18,8 +18,10 @@ class CarGenerator:
 
     def set_default_config(self):
         """Set default configuration"""
+        self.road_length = 1000
         self.lam = 1
         self.size = 40
+        self.car_length = 3.8
 
     def init_properties(self):
         self.generate_cars()
@@ -29,7 +31,7 @@ class CarGenerator:
             if road.is_bicycle:
                 continue
             poisson_list = poisson(lam=self.lam, size=self.size)
-            l = 25 - 3.8/2
+            l = self.road_length/self.size - self.car_length/2
             for i in range(self.size):
                 if poisson_list[i] == 0:
                     continue
@@ -37,9 +39,13 @@ class CarGenerator:
                 for j in range(poisson_list[i]):
                     x = i*20 + 1.9 + j*d
                     if road.if_left_to_right:
-                        road.cars.add(Car({"x": x}))
+                        road.cars.add(Car({"x": round(x, 2) if not x is int else 1}))
                     else:
-                        road.cars.append(Car({"x": x}))
+                        road.cars.append(Car({"x": round(x, 2) if not x is int else 1}))
+
+            # for car in road.cars.ergodic:
+            #     print(car.data.x,end=',')
+            # print()
 
 
 
@@ -57,4 +63,8 @@ class CarGenerator:
     #             # Reset last_added_time and upcoming_vehicle
     #             self.last_added_time = self.sim.t
     #         self.upcoming_vehicle = self.generate_vehicle()
+
+if __name__ == '__main__':
+    gen = CarGenerator({"road_length":1000, "lam":1, "size":40, "car_length":3.8})
+
 
