@@ -12,6 +12,13 @@ sim.create_roads([
     ((0, 8.25), (1000, 8.25), True),
 ])
 
+sim.create_rsus([
+    (x, -8.25) for x in range(0, 1000, 400)
+])
+sim.create_rsus([
+    (x, 8.25) for x in range(0, 1000, 400)
+])
+
 sim.create_gen({"road_length":1000, "lam":1, "size":20, "car_length":3.8})
 
 

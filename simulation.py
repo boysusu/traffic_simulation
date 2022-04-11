@@ -1,5 +1,6 @@
 from road import Road
 from car_generator import CarGenerator
+from rsu import RSU
 from copy import deepcopy
 
 
@@ -17,6 +18,7 @@ class Simulation:
         self.frame_count = 0  # Frame count keeping
         self.dt = 1 / 60  # Simulation time step
         self.roads = []  # Array to store roads
+        self.rsus = [] # Array to store rsus
         self.generators = []
 
     def create_road(self, start, end, is_bicycle=False):
@@ -27,6 +29,15 @@ class Simulation:
     def create_roads(self, road_list):
         for road in road_list:
             self.create_road(*road)
+
+    def create_rsu(self, x, y):
+        rsu = RSU(x,y)
+        self.rsus.append(rsu)
+        return rsu
+
+    def create_rsus(self, rsu_list):
+        for rsu in rsu_list:
+            self.create_rsu(*rsu)
 
     def create_gen(self, config={}):
         gen = CarGenerator(self, config)

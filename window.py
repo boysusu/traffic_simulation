@@ -284,6 +284,16 @@ class Window:
         self.screen.blit(text_fps, (0, 0))
         self.screen.blit(text_frc, (100, 0))
 
+    def draw_rsus(self):
+        for rsu in self.sim.rsus:
+            self.rotated_box(
+                (rsu.x, rsu.y),
+                (1, 1),
+                color=(255, 0, 0),
+                centered=True
+            )
+            gfxdraw.circle(self.screen, *self.convert(rsu.x, rsu.y), int(rsu.r * self.zoom), (0, 255, 0))
+
     def draw(self):
         # Fill background
         self.background(*self.bg_color)
@@ -296,13 +306,8 @@ class Window:
         self.draw_roads()
         self.draw_cars()
         self.draw_status()
-        self.rotated_box(
-            (0,0),
-            (1,1),
-            color=(255,0,0),
-            centered=True
-        )
-        gfxdraw.circle(self.screen,*self.convert(0,0),int(200*self.zoom),(0,255,0))
+        self.draw_rsus()
+
         # exit(0)
         # print(image)
         # frameRect = self.image.get_rect().fit(self.zoom)
