@@ -15,8 +15,8 @@ class Car:
         self.h = 2  # 车身宽度
         self.s0 = 1  # 期望车距
         self.T = 0.1  # 驾驶员反应时间
-        self.v_max = 35.0  # 正常行驶最大车速
-        self.a_max = 6.0  # 最大加速度
+        self.v_max = 25.0  # 正常行驶最大车速
+        self.a_max = 5.0  # 最大加速度
         self.b_max = 5.0  # 非紧急制动下的最大减速度
 
         self.current_road_index = 0  # 车辆所处的车道

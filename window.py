@@ -21,7 +21,7 @@ class Window:
         """Set default configuration"""
         self.width = 1920
         self.height = 600
-        self.bg_color = (51, 204, 204)
+        self.bg_color = (0, 0, 0)
 
         self.fps = 60
         self.zoom = 5
@@ -141,7 +141,7 @@ class Window:
         if filled:
             gfxdraw.filled_polygon(self.screen, vertices, color)
 
-    def rotated_box(self, pos, size, angle=None, cos=None, sin=None, centered=True, color=(0, 0, 255), filled=True):
+    def rotated_box(self, pos, size, angle=None, cos=1, sin=0, centered=True, color=(0, 0, 255), filled=True):
         """Draws a rectangle center at *pos* with size *size* rotated anti-clockwise by *angle*."""
         x, y = pos
         l, h = size
@@ -289,14 +289,20 @@ class Window:
         self.background(*self.bg_color)
 
         # Major and minor grid and axes
-        self.draw_grid(10, (220,220,220))
-        self.draw_grid(100, (200,200,200))
+        # self.draw_grid(10, (220,220,220))
+        # self.draw_grid(100, (200,200,200))
         self.draw_axes()
 
         self.draw_roads()
         self.draw_cars()
         self.draw_status()
-
+        self.rotated_box(
+            (0,0),
+            (1,1),
+            color=(255,0,0),
+            centered=True
+        )
+        gfxdraw.circle(self.screen,*self.convert(0,0),int(200*self.zoom),(0,255,0))
         # exit(0)
         # print(image)
         # frameRect = self.image.get_rect().fit(self.zoom)
