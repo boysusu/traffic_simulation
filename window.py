@@ -272,10 +272,7 @@ class Window:
                 image = right_to_left_car_image
 
             for car in road.cars.ergodic:
-                y = road.start[1]
-                x = road.start[0] + road.angle_cos * car.data.x
-
-                self.screen.blit(image, self.convert(x - car.data.l/2, y - car.data.h/2))
+                self.screen.blit(image, self.convert(car.data.x - car.data.l/2, car.data.y - car.data.h/2))
 
     def draw_status(self):
         text_fps = self.text_font.render(f't={self.sim.t:.5}', False, (0, 0, 0))
@@ -323,4 +320,3 @@ class Window:
         # self.screen.blit(image, self.convert(self.get_vertex_coordinates(20*x, -5.25)))
         # Draw status info
         # self.draw_status()
-x = 0
