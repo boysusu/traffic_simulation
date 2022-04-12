@@ -101,10 +101,10 @@ class Simulation:
             gen.update()
 
         # 更新距离矩阵
-        self.update_distance()
+        # self.update_distance()
 
         # 更新上传速率矩阵
-        self.update_upload_speed()
+        # self.update_upload_speed()
 
         # 更新时刻和帧数
         self.t += self.dt

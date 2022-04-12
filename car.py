@@ -23,6 +23,8 @@ class Car:
         self.a_max = 5.0  # 最大加速度
         self.b_max = 5.0  # 非紧急制动下的最大减速度
 
+        self.max_num_of_channels = 3  # 信道数量
+
         self.current_road_index = 0  # 车辆所处的车道
 
         self.v = 20  # 车辆的当前速率
