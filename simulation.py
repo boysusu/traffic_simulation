@@ -2,6 +2,8 @@ from road import Road
 from car_generator import CarGenerator
 from rsu import RSU
 from scipy.spatial import distance
+from util.const import *
+from numpy import log2
 from copy import deepcopy
 
 
@@ -23,6 +25,8 @@ class Simulation:
         self.cars = []  # 存储所有汽车
         self.V2V_distance_map = None  # 存储所有汽车之间的距离
         self.V2R_distance_map = None  # 存储汽车与RSU之间的距离
+        self.V2V_speed_map = None  # 存储所有汽车之间的上行链路传输数据速率
+        self.V2R_speed_map = None  # 存储汽车与RSU之间的上行链路传输数据速率
         self.generators = []  # 车辆生成器
 
     def create_road(self, start, end, is_bicycle=False):
@@ -50,6 +54,11 @@ class Simulation:
         # 初始化距离矩阵
         self.V2V_distance_map = [[None for _ in range(car_mum)] for __ in range(car_mum)]
         self.V2R_distance_map = [[None for _ in range(len(self.rsus))] for __ in range(car_mum)]
+
+        # 初始化上传链路速率矩阵
+        self.V2V_speed_map = [[None for _ in range(car_mum)] for __ in range(car_mum)]
+        self.V2R_speed_map = [[None for _ in range(len(self.rsus))] for __ in range(car_mum)]
+
         self.generators.append(gen)
 
     def update_distance(self):
@@ -65,6 +74,22 @@ class Simulation:
                 self.V2R_distance_map[i][k] = \
                     distance.euclidean((self.cars[i].x, self.cars[i].y), (self.rsus[k].x, self.rsus[k].y))
 
+    def update_upload_speed(self):
+        def calculate(d):
+            return log2(1+(car_communication_transmission_power*d**-path_loss_factor*upload_channel_fading_factor**2/gaussian_noise_power))
+
+        for i in range(len(self.cars)):
+            #  更新v2v上传速率矩阵
+            for j in range(i + 1, len(self.cars)):
+                self.V2V_speed_map[i][j] = \
+                    V2V_channel_bandwidth * calculate(self.V2V_distance_map[i][j])
+                self.V2V_speed_map[j][i] = self.V2V_speed_map[i][j]
+
+            #  更新v2r上传速率矩阵
+            for k in range(len(self.rsus)):
+                self.V2R_speed_map[i][k] = \
+                    V2R_channel_bandwidth * calculate(self.V2R_distance_map[i][k])
+
     def update(self):
         # Update every car road
         for road in self.roads:
@@ -77,6 +102,10 @@ class Simulation:
 
         # 更新距离矩阵
         self.update_distance()
+
+        # 更新上传速率矩阵
+        self.update_upload_speed()
+
         # 更新时刻和帧数
         self.t += self.dt
         self.frame_count += 1
