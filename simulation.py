@@ -1,6 +1,7 @@
 from road import Road
 from car_generator import CarGenerator
 from rsu import RSU
+from scipy.spatial import distance
 from copy import deepcopy
 
 
@@ -51,6 +52,19 @@ class Simulation:
         self.V2R_distance_map = [[None for _ in range(len(self.rsus))] for __ in range(car_mum)]
         self.generators.append(gen)
 
+    def update_distance(self):
+        for i in range(len(self.cars)):
+            #  更新v2v距离矩阵
+            for j in range(i+1, len(self.cars)):
+                self.V2V_distance_map[i][j] = \
+                    distance.euclidean((self.cars[i].x, self.cars[i].y), (self.cars[j].x, self.cars[j].y))
+                self.V2V_distance_map[j][i] = self.V2V_distance_map[i][j]
+
+            #  更新v2r距离矩阵
+            for k in range(len(self.rsus)):
+                self.V2R_distance_map[i][k] = \
+                    distance.euclidean((self.cars[i].x, self.cars[i].y), (self.rsus[k].x, self.rsus[k].y))
+
     def update(self):
         # Update every car road
         for road in self.roads:
@@ -61,7 +75,9 @@ class Simulation:
         for gen in self.generators:
             gen.update()
 
-        # Increment time
+        # 更新距离矩阵
+        self.update_distance()
+        # 更新时刻和帧数
         self.t += self.dt
         self.frame_count += 1
 

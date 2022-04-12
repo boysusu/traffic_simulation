@@ -19,7 +19,7 @@ sim.create_rsus([
 #     (x, 8.25) for x in range(400, 1000, 800)
 # ])
 
-sim.create_gen({"road_length":1000, "lam":1, "size":30, "car_length":3.8})
+sim.create_gen({"road_length":1000, "lam":1, "size":20, "car_length":3.8})
 
 
 win = Window(sim)
