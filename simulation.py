@@ -30,14 +30,14 @@ class Simulation:
         for road in road_list:
             self.create_road(*road)
 
-    def create_rsu(self, x, y):
-        rsu = RSU(x,y)
+    def create_rsu(self, config):
+        rsu = RSU(config)
         self.rsus.append(rsu)
         return rsu
 
     def create_rsus(self, rsu_list):
-        for rsu in rsu_list:
-            self.create_rsu(*rsu)
+        for rsu_config in rsu_list:
+            self.create_rsu(rsu_config)
 
     def create_gen(self, config={}):
         gen = CarGenerator(self, config)

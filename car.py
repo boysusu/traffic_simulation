@@ -1,5 +1,7 @@
 import numpy as np
 
+from util.const import GHz
+
 
 class Car:
     def __init__(self, config={}):
@@ -27,6 +29,9 @@ class Car:
         self.angle_cos = 1  # 车辆行驶方向与x轴的余弦值
         self.x = 0  # 车辆的x坐标
         self.y = 0  # 车辆的y坐标
+
+        self.cpu = 1 * GHz  # 车载设备计算能力
+        self.max_num_of_channels = 3  # 信道数量
 
     def init_properties(self):
         self.sqrt_ab = 2 * np.sqrt(self.a_max * self.b_max)

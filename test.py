@@ -13,7 +13,7 @@ sim.create_roads([
 ])
 
 sim.create_rsus([
-    (x, -8.25) for x in range(0, 1000, 400)
+    {"x": x, "y": -8.25}for x in range(0, 1000, 400)
 ])
 # sim.create_rsus([
 #     (x, 8.25) for x in range(400, 1000, 800)
