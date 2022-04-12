@@ -44,6 +44,7 @@ class CarGenerator:
                         "current_road_index": k,
                         "angle_cos": self.sim.roads[k].angle_cos,
                     })
+                    self.sim.cars.append(car)
                     if self.sim.roads[k].angle_cos == 1:
                         self.sim.roads[k].cars.add(car)
                     else:

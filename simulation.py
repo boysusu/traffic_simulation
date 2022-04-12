@@ -14,12 +14,13 @@ class Simulation:
             setattr(self, attr, val)
 
     def set_default_config(self):
-        self.t = 0.0  # Time keeping
-        self.frame_count = 0  # Frame count keeping
-        self.dt = 1 / 60  # Simulation time step
-        self.roads = []  # Array to store roads
-        self.rsus = [] # Array to store rsus
-        self.generators = []
+        self.t = 0.0  # 时刻
+        self.frame_count = 0  # 仿真帧计数
+        self.dt = 1 / 60  # 仿真时间步长
+        self.roads = []  # 存储所有车道和人行道
+        self.rsus = []  # 存储所有RSU
+        self.cars = []  # 存储所有汽车
+        self.generators = []  # 车辆生成器
 
     def create_road(self, start, end, is_bicycle=False):
         road = Road(start, end, is_bicycle)
