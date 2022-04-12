@@ -6,6 +6,7 @@ class RSU:
             setattr(self, attr, val)
 
     def set_default_config(self):
+        self.id = None  # RSU唯一id
         self.x = 0  # RSU的x坐标
         self.y = 0  # RSU的y坐标
         self.r = 200  # 通信覆盖半径
