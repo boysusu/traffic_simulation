@@ -13,6 +13,8 @@ class Car:
         self.init_properties()
 
     def set_default_config(self):
+        self.id = None  # 汽车唯一id
+
         self.l = 3.8  # 车身长度
         self.h = 2  # 车身宽度
         self.s0 = 2  # 期望车距

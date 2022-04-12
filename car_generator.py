@@ -13,9 +13,6 @@ class CarGenerator:
         for attr, val in config.items():
             setattr(self, attr, val)
 
-        # Calculate properties
-        self.init_properties()
-
     def set_default_config(self):
         """Set default configuration"""
         self.road_length = 1000
@@ -23,10 +20,8 @@ class CarGenerator:
         self.size = 40
         self.car_length = 3.8
 
-    def init_properties(self):
-        self.generate_cars()
-
     def generate_cars(self):
+        car_id = 0
         for k in range(len(self.sim.roads)):
             if self.sim.roads[k].is_bicycle:
                 continue
@@ -39,16 +34,19 @@ class CarGenerator:
                 for j in range(poisson_list[i]):
                     x = i * (self.road_length / self.size) + self.car_length / 2 + j * d
                     car = Car({
+                        "id": car_id,
                         "x": round(x, 2),
                         "y": self.sim.roads[k].start[1],
                         "current_road_index": k,
                         "angle_cos": self.sim.roads[k].angle_cos,
                     })
+                    car_id += 1
                     self.sim.cars.append(car)
                     if self.sim.roads[k].angle_cos == 1:
                         self.sim.roads[k].cars.add(car)
                     else:
                         self.sim.roads[k].cars.append(car)
+        return car_id
 
             # for car in road.cars.ergodic:
             #     print(car.data.x,end=',')

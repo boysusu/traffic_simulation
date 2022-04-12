@@ -20,6 +20,7 @@ class Simulation:
         self.roads = []  # 存储所有车道和人行道
         self.rsus = []  # 存储所有RSU
         self.cars = []  # 存储所有汽车
+        self.distance_map = None
         self.generators = []  # 车辆生成器
 
     def create_road(self, start, end, is_bicycle=False):
@@ -42,8 +43,9 @@ class Simulation:
 
     def create_gen(self, config={}):
         gen = CarGenerator(self, config)
+        car_mum = gen.generate_cars()
+        self.distance_map = [[None for _ in range(car_mum)] for __ in range(car_mum)]
         self.generators.append(gen)
-        return gen
 
     def update(self):
         # Update every car road
