@@ -1,3 +1,9 @@
+'''
+@File   :   dlinklist.py
+@Author :   boysusu
+@Desc   :   定义双向链表，用于存储汽车
+'''
+
 class Node:
     """节点类"""
     def __init__(self, data):
@@ -5,6 +11,8 @@ class Node:
         self.next = None
         self.prev = None
 
+    def getNext(self):
+        return self.next
 
 class DLinkList:
     """
@@ -144,10 +152,18 @@ class DLinkList:
                 cur = cur.next
 
 if __name__ == '__main__':
-    car_list = DLinkList()
-    car_list.add(4)
-    car_list.add(3)
-    car_list.add(2)
-    car_list.add(1)
-    car_list.insert(999, 35)
-    print(car_list.ergodic)
+    car_list1 = DLinkList()
+    car_list2 = DLinkList()
+    for i in range(4):
+        car_list1.append(i)
+        car_list2.append(i+10)
+    car_list2.deltel(10)
+    car_list1.insert(3, 13)
+    for i in car_list1.ergodic:
+        print(i.data, end=', ')
+        break
+    for i in car_list1.ergodic:
+        print(i.data, end=', ')
+    print()
+    for i in car_list2.ergodic:
+        print(i.data, end=', ')

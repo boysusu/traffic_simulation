@@ -22,6 +22,9 @@
 ### road
 长度为1000米，车道宽度为3.5m，人行道宽度为3m
 ### car
+1. 车为红色代表有计算任务
+2. 车为绿色代表正在协助计算
+3. 两车之间的连线代表任务卸载
 ```python
 self.l = 3.8  # 车身长度
 self.h = 2  # 车身宽度
@@ -66,3 +69,10 @@ car_communication_transmission_power = 1.6  # 车载设备通信发射功率(w)
 9. rsu及协同车辆选择
 10. 多次模拟生成结果数据
 11. 数据绘图
+
+## RUN
+```bash
+pip install -r requirements.txt
+python3 main.py
+```
+
